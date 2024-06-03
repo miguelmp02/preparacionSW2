@@ -122,4 +122,4 @@ components:
       description: Book ID obtained from the database
       example: 6463448ae7684d03f44af30f
 servers:
-  - url: localhost:3010/api/v2
+  - url: localhost:3010/api/v2  # Apartado 1
