@@ -60,12 +60,20 @@ router.post('/', async (req, res) => {
 
 //deleteBookById()
 router.delete('/:id', async (req, res) => {
+  if(!ObjectId.isValid(req.params.id)) {
+    return res.status(400).send("Invalid book ID");
+  }
   const query = { _id: new ObjectId(req.params.id) };
   const dbConnect = dbo.getDb();
   let result = await dbConnect
     .collection(COLLECTION)
     .deleteOne(query);
-  res.status(200).send(result);
+
+    if (result.deletedCount == 1) {
+      res.status(200).send(result);
+    }else{
+      res.status(400).send("Invalid Book ID");
+    }
 });
 
 module.exports = router;
