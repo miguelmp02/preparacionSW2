@@ -22,6 +22,7 @@ router.get('/', async (req, res) => {
     .find(query)
     .sort({_id: -1})
     .limit(limit)
+    .project({_id:1, title:1, author:1})  //Apartado 2: En el openapi pone que se requiere id title y author
     .toArray()
     .catch(err => res.status(400).send('Error searching for books'));
   next = results.length == limit ? results[results.length - 1]._id : null;
