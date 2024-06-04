@@ -25,6 +25,11 @@ router.get('/', async (req, res) => {
     .project({_id:1, title:1, author:1})  //Apartado 2: En el openapi pone que se requiere id title y author
     .toArray()
     .catch(err => res.status(400).send('Error searching for books'));
+
+    results = results.map(book => ({
+      ...book,
+      link: "http://localhost:3010/api/v2/book/${book._id}"  
+    }))
   next = results.length == limit ? results[results.length - 1]._id : null;
   res.json({results, next}).status(200);
 });
